@@ -1,5 +1,3 @@
-function greet(name) {
-    return Hello, ${name}!;
-}
+const greet = (name) => `Hello, ${name}!`;
 
-console.log(greet("mergeConflict")); // Output: Hello, mergeConflict!
+console.log(greet("mergeConflict")); // Output: Hello, mergeConflict!
