@@ -56,7 +56,7 @@ function createSecureStorage() {
   return {
     getSecret: function () {
       console.log("Access Denied!");
-      return "*****";
+      return "*";
     },
     setSecret: function (newSecret) {
       secretData = newSecret;
@@ -67,16 +67,25 @@ function createSecureStorage() {
 // Feature 5: Lazy Loader with Caching
 function createCachedLoader() {
   let cache = null;
+  let cacheTime = null;
+  const CACHE_DURATION = 5000; // Cache expires after 5 seconds
 
   return {
     fetchData: function () {
-      if (!cache) {
-        console.log("Fetching data...");
+      const currentTime = Date.now();
+      if (!cache || (cacheTime && currentTime - cacheTime > CACHE_DURATION)) {
+        console.log("Fetching fresh data...");
         cache = { user: "John Doe", age: 30 };
+        cacheTime = currentTime;
       } else {
         console.log("Returning cached data.");
       }
       return cache;
+    },
+    invalidateCache: function () {
+      console.log("Cache invalidated.");
+      cache = null;
+      cacheTime = null;
     },
   };
 }
@@ -121,23 +130,23 @@ function createExpiringCacheLoader() {
 
 // Feature 8: Rate Limiter
 function createRateLimiter(limit, interval) {
-    let callCount = 0;
-    let startTime = Date.now();
-  
-    return {
-      execute: function (fn) {
-        const currentTime = Date.now();
-        if (currentTime - startTime > interval) {
-          startTime = currentTime;
-          callCount = 0;
-        }
-  
-        if (callCount < limit) {
-          callCount++;
-          fn();
-        } else {
-          console.log("Rate limit exceeded. Try again later.");
-        }
-      },
-    };
-  }
+  let callCount = 0;
+  let startTime = Date.now();
+
+  return {
+    execute: function (fn) {
+      const currentTime = Date.now();
+      if (currentTime - startTime > interval) {
+        startTime = currentTime;
+        callCount = 0;
+      }
+
+      if (callCount < limit) {
+        callCount++;
+        fn();
+      } else {
+        console.log("Rate limit exceeded. Try again later.");
+      }
+    },
+  };
+}
