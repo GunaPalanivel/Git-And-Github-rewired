@@ -98,7 +98,7 @@ function createOptimizedLoader() {
   };
 }
 
-// Expiring Cache Feature
+// Feature 7: Expiring Cache Feature
 function createExpiringCacheLoader() {
   let cache = null;
   let cacheTime = null;
