@@ -28,26 +28,26 @@ function createFixedFunction() {
 
 // Feature 3: Added Secure Storage
 function createSecureStorage() {
-    let secretData = "SuperSecret";
-  
-    return {
-      getSecret: function (auth) {
-        if (auth === "admin") {
-          return secretData; // Only authorized users can access the secret
-        }
-        console.log("Access Denied!");
-        return "*";
-      },
-      setSecret: function (newSecret, auth) {
-        if (auth === "admin") {
-          secretData = newSecret;
-          console.log("Secret updated successfully.");
-        } else {
-          console.log("Unauthorized attempt to modify secret.");
-        }
-      },
-    };
-  }
+  let secretData = "SuperSecret";
+
+  return {
+    getSecret: function (auth) {
+      if (auth === "admin") {
+        return secretData; // Only authorized users can access the secret
+      }
+      console.log("Access Denied!");
+      return "*";
+    },
+    setSecret: function (newSecret, auth) {
+      if (auth === "admin") {
+        secretData = newSecret;
+        console.log("Secret updated successfully.");
+      } else {
+        console.log("Unauthorized attempt to modify secret.");
+      }
+    },
+  };
+}
 
 // Feature 4: Introduced a Security Flaw (Returns ***** instead of actual secret data.)
 function createSecureStorage() {
@@ -73,6 +73,44 @@ function createCachedLoader() {
       if (!cache) {
         console.log("Fetching data...");
         cache = { user: "John Doe", age: 30 };
+      } else {
+        console.log("Returning cached data.");
+      }
+      return cache;
+    },
+  };
+}
+
+// Feature 6: Introduced a Loader
+function createOptimizedLoader() {
+  let cache = null;
+
+  return {
+    fetchData: function () {
+      if (!cache) {
+        console.log("Fetching data...");
+        cache = { user: "John Doe", age: 30 };
+      } else {
+        console.log("Returning cached data.");
+      }
+      return cache;
+    },
+  };
+}
+
+// Feature 7: Expiring Cache Feature
+function createExpiringCacheLoader() {
+  let cache = null;
+  let cacheTime = null;
+  const CACHE_DURATION = 5000;
+
+  return {
+    fetchData: function () {
+      const currentTime = Date.now();
+      if (!cache || (cacheTime && currentTime - cacheTime > CACHE_DURATION)) {
+        console.log("Fetching fresh data...");
+        cache = { user: "John Doe", age: 30 };
+        cacheTime = currentTime;
       } else {
         console.log("Returning cached data.");
       }
