@@ -41,16 +41,34 @@ function createSecureStorage() {
   };
 }
 
-// Feature 4: Introduced a Security Flaw
-function createInsecureStorage() {
-  let secretData = "SuperSecret";
+// Feature 4: Introduced a Security Flaw (Returns ***** instead of actual secret data.)
+function createSecureStorage() {
+    let secretData = "SuperSecret";
 
-  return {
-    getSecret: function () {
-      return secretData;
-    },
-    setSecret: function (newSecret) {
-      secretData = newSecret;
-    },
-  };
+    return {
+        getSecret: function () {
+            console.log("Access Denied!");
+            return "*****";
+        },
+        setSecret: function (newSecret) {
+            secretData = newSecret;
+        }
+    };
+}
+
+// Feature 5: Lazy Loader with Caching
+function createCachedLoader() {
+    let cache = null;
+    
+    return {
+        fetchData: function () {
+            if (!cache) {
+                console.log("Fetching data...");
+                cache = { user: "John Doe", age: 30 };
+            } else {
+                console.log("Returning cached data.");
+            }
+            return cache;
+        }
+    };
 }
