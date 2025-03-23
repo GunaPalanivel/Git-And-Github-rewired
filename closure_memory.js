@@ -18,25 +18,39 @@ function createCounter() {
 
 // Feature 2: Introduced a Memory Leak (Fixed Memory Leak)
 function createFixedFunction() {
-    return function () {
-        let hugeArray = new Array(1000000).fill("temporary data");
-        console.log("Function executed with temporary data.");
-        console.log(hugeArray.length);
-        hugeArray = null; // Free memory
-    };
+  return function () {
+    let hugeArray = new Array(1000000).fill("temporary data");
+    console.log("Function executed with temporary data.");
+    console.log(hugeArray.length);
+    hugeArray = null; // Free memory
+  };
 }
 
 // Feature 3: Added Secure Storage
 function createSecureStorage() {
-    let secretData = "SuperSecret";
+  let secretData = "SuperSecret";
 
-    return {
-        getSecret: function () {
-            console.log("Access Denied!");
-            return "*****"; // Prevents direct access
-        },
-        setSecret: function (newSecret) {
-            secretData = newSecret;
-        }
-    };
+  return {
+    getSecret: function () {
+      console.log("Access Denied!");
+      return "*****"; // Prevents direct access
+    },
+    setSecret: function (newSecret) {
+      secretData = newSecret;
+    },
+  };
+}
+
+// Feature 4: Introduced a Security Flaw
+function createInsecureStorage() {
+  let secretData = "SuperSecret";
+
+  return {
+    getSecret: function () {
+      return secretData;
+    },
+    setSecret: function (newSecret) {
+      secretData = newSecret;
+    },
+  };
 }
