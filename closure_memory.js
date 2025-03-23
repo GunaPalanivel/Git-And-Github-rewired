@@ -56,7 +56,7 @@ function createSecureStorage() {
   return {
     getSecret: function () {
       console.log("Access Denied!");
-      return "*****";
+      return "*";
     },
     setSecret: function (newSecret) {
       secretData = newSecret;
@@ -68,7 +68,7 @@ function createSecureStorage() {
 function createCachedLoader() {
   let cache = null;
   let cacheTime = null;
-  const CACHE_DURATION = 5000;
+  const CACHE_DURATION = 5000; // Cache expires after 5 seconds
 
   return {
     fetchData: function () {
