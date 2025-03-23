@@ -118,3 +118,26 @@ function createExpiringCacheLoader() {
     },
   };
 }
+
+// Feature 8: Rate Limiter
+function createRateLimiter(limit, interval) {
+    let callCount = 0;
+    let startTime = Date.now();
+  
+    return {
+      execute: function (fn) {
+        const currentTime = Date.now();
+        if (currentTime - startTime > interval) {
+          startTime = currentTime;
+          callCount = 0;
+        }
+  
+        if (callCount < limit) {
+          callCount++;
+          fn();
+        } else {
+          console.log("Rate limit exceeded. Try again later.");
+        }
+      },
+    };
+  }
