@@ -28,18 +28,26 @@ function createFixedFunction() {
 
 // Feature 3: Added Secure Storage
 function createSecureStorage() {
-  let secretData = "SuperSecret";
-
-  return {
-    getSecret: function () {
-      console.log("Access Denied!");
-      return "*****"; // Prevents direct access
-    },
-    setSecret: function (newSecret) {
-      secretData = newSecret;
-    },
-  };
-}
+    let secretData = "SuperSecret";
+  
+    return {
+      getSecret: function (auth) {
+        if (auth === "admin") {
+          return secretData; // Only authorized users can access the secret
+        }
+        console.log("Access Denied!");
+        return "*";
+      },
+      setSecret: function (newSecret, auth) {
+        if (auth === "admin") {
+          secretData = newSecret;
+          console.log("Secret updated successfully.");
+        } else {
+          console.log("Unauthorized attempt to modify secret.");
+        }
+      },
+    };
+  }
 
 // Feature 4: Introduced a Security Flaw (Returns ***** instead of actual secret data.)
 function createSecureStorage() {
