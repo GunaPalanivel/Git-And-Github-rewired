@@ -72,13 +72,3 @@ function createCachedLoader() {
     },
   };
 }
-
-// Feature 6: Introduced a Loader
-function createLoader() {
-  return {
-    fetchData: function () {
-      console.log("Fetching data...");
-      return { user: "John Doe", age: 30 };
-    },
-  };
-}
