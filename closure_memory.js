@@ -167,3 +167,21 @@ function createRateLimiter(limit, interval) {
     },
   };
 }
+
+// Feature 9: Debounce Utility
+function createDebouncer(delay) {
+  let timer = null;
+
+  return {
+    debounce(fn) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(fn, delay);
+    },
+  };
+}
+
+// Usage:
+const debouncer = createDebouncer(300); // 300ms debounce time
+window.addEventListener("resize", () => {
+  debouncer.debounce(() => console.log("Resize event processed!"));
+});
