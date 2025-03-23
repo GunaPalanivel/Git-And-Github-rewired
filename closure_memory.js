@@ -16,12 +16,27 @@ function createCounter() {
   };
 }
 
-// Feature 2: Introduced a Memory Leak
-function createLeakyFunction() {
-  let hugeArray = new Array(1000000).fill("leak");
+// Feature 2: Introduced a Memory Leak (Fixed Memory Leak)
+function createFixedFunction() {
+    return function () {
+        let hugeArray = new Array(1000000).fill("temporary data");
+        console.log("Function executed with temporary data.");
+        console.log(hugeArray.length);
+        hugeArray = null; // Free memory
+    };
+}
 
-  return function () {
-    console.log("This function is causing a memory leak!");
-    console.log(hugeArray.length);
-  };
+// Feature 3: Added Secure Storage
+function createSecureStorage() {
+    let secretData = "SuperSecret";
+
+    return {
+        getSecret: function () {
+            console.log("Access Denied!");
+            return "*****"; // Prevents direct access
+        },
+        setSecret: function (newSecret) {
+            secretData = newSecret;
+        }
+    };
 }
