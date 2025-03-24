@@ -16,8 +16,6 @@ async function displayUser() {
     const data = await fetchData();
     console.log("User Data:", data);
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("Error:", error); // Fixed bug (removed .message)
   }
 }
-
-displayUser();
