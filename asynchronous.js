@@ -18,11 +18,14 @@ const controller = new AbortController();
 setTimeout(() => controller.abort(), 1000);
 
 async function displayUser() {
+  console.log("Loading...");
   try {
     const data = await fetchData();
     console.log("User Data:", data);
   } catch (error) {
-    console.error("Error:", error); // Fixed bug (removed .message)
+    console.error("Error:", error);
+  } finally {
+    console.log("Done");
   }
 }
 
