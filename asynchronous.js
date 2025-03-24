@@ -1,14 +1,23 @@
 async function fetchData() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ user: "Guna", age: 21 });
+      const error = false;
+      if (error) {
+        reject("Failed to fetch data!");
+      } else {
+        resolve({ user: "Guna", age: 21 });
+      }
     }, 2000);
   });
 }
 
 async function displayUser() {
-  const data = await fetchData();
-  console.log("User Data:", data);
+  try {
+    const data = await fetchData();
+    console.log("User Data:", data);
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
 }
 
 displayUser();
