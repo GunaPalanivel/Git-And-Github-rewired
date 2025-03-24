@@ -13,12 +13,24 @@ async function fetchData() {
 
 async function displayUser() {
   console.log("Loading...");
+
   try {
+    // Simulating a delay for UI responsiveness
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     const data = await fetchData();
+
+    // Additional validation for empty or undefined data
+    if (!data || Object.keys(data).length === 0) {
+      throw new Error("No user data available");
+    }
+
     console.log("User Data:", data);
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error.message || error);
   } finally {
-    console.log("Done");
+    console.log("Process Completed.");
   }
 }
+
+displayUser();
