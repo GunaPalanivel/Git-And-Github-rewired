@@ -1,11 +1,14 @@
-function fetchData() {
-  return new Promise((resolve, reject) => {
+async function fetchData() {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      const data = { user: "Guna", age: 21 };
-      resolve(data);
+      resolve({ user: "Guna", age: 21 });
     }, 2000);
   });
 }
 
-fetchData().then((data) => console.log("User Data:", data));
+async function displayUser() {
+  const data = await fetchData();
+  console.log("User Data:", data);
+}
 
+displayUser();
