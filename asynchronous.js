@@ -1,21 +1,15 @@
 async function fetchData() {
-  const controller = new AbortController();
-  const signal = controller.signal;
-
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (signal.aborted) {
-        reject("Request was aborted");
+      const error = false;
+      if (error) {
+        reject("Failed to fetch data!");
       } else {
         resolve({ user: "Guna", age: 21 });
       }
     }, 2000);
   });
 }
-
-// Cancel the request before it resolves
-const controller = new AbortController();
-setTimeout(() => controller.abort(), 1000);
 
 async function displayUser() {
   console.log("Loading...");
@@ -28,5 +22,3 @@ async function displayUser() {
     console.log("Done");
   }
 }
-
-displayUser();
