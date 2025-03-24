@@ -8,3 +8,4 @@ function fetchData() {
 }
 
 fetchData().then((data) => console.log("User Data:", data));
+
